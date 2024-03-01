@@ -7,6 +7,7 @@ class Load extends Phaser.Scene {
         //implement credits later
 
         //fonts
+        //font by Ænigma
         this.load.bitmapFont('edit_font', 'assets/fonts/Edit_Undo_Line-1.png', 'assets/fonts/Edit_Undo_Line-1.xml');
 
     }
