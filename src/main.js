@@ -7,7 +7,7 @@
 let config = {
     parent : 'myGame',
     type : Phaser.AUTO,
-    width : 1200,
+    width : 1500,
     height : 680,
     scale : {
         autoCenter: Phaser.Scale.CENTER_BOTH
@@ -24,4 +24,6 @@ let config = {
 //defines game
 let game = new Phaser.Game(config);
 
-//define globals (?)
+//define globals 
+let centerX = game.config.width/2;
+let centerY = game.config.height/2;

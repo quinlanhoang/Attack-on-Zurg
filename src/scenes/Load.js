@@ -4,6 +4,10 @@ class Load extends Phaser.Scene {
     }
 
     preload() {
+        //implement credits later
+
+        //fonts
+        this.load.bitmapFont('edit_font', 'assets/fonts/Edit_Undo_Line-1.png', 'assets/fonts/Edit_Undo_Line-1.xml');
 
     }
 

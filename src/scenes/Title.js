@@ -4,6 +4,9 @@ class Title extends Phaser.Scene {
     }
 
     create() {
+        
+        //main title text
+        const title = this.add.bitmapText(centerX, centerY - 150, 'edit_font', 'Attack on Zurg', 95).setOrigin(0.5);
 
     }
 
