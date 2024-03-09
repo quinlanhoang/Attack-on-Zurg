@@ -32,6 +32,7 @@ class Load extends Phaser.Scene {
         //character graphics
         this.add.image('buzz', 'img/buzz.png')
         this.add.image('zurg', 'img/zurg.png')
+        this.add.image('enemy', 'img/enemy.png')
 
         //audio
         // this.load.audio('death')
