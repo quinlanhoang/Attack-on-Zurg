@@ -2,13 +2,14 @@
 //Attack on Zurg
 
 //main
+'use strict';
 
 //define and config main Phaser game object
 let config = {
     parent : 'myGame',
     type : Phaser.AUTO,
     width : 1500,
-    height : 670,
+    height : 760,
     scale : {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },

@@ -23,6 +23,18 @@ class Gameover extends Phaser.Scene {
             newHighScore = true;
         }
 
+        if(newHighScore) {
+            this.add.bitmapText(centerX, centerY - textSpacer*3, 'edit', 'New Hi-Score!', 32).setOrigin(0.5);
+        }
+        this.add.bitmapText(centerX, centerY - textSpacer*2, 'edit', `Disintegration averted for ${level}s`, 48).setOrigin(0.5);
+        this.add.bitmapText(centerX, centerY - textSpacer, 'edit', `This browser's best: ${highScore}s`, 24).setOrigin(0.5);
+        this.add.bitmapText(centerX, centerY, 'edit', `Press SPACE BAR to Restart`, 36).setOrigin(0.5);
+
+        // add credits text
+        this.add.bitmapText(centerX, centerY + textSpacer, 'edit', 'Music from Bensound', 24).setOrigin(0.5);
+        this.add.bitmapText(centerX, centerY + textSpacer*1.5, 'edit', 'Sound effects from Pixabay', 24).setOrigin(0.5);
+        this.add.bitmapText(centerX, centerY + textSpacer*2, 'edit', 'Game play inspired by Nathan Altice', 24).setOrigin(0.5);
+
         cursors = this.input.keyboard.createCursorKeys();
     }
 
@@ -40,7 +52,7 @@ class Gameover extends Phaser.Scene {
             });
 
             // start next scene
-            this.scene.start('playScene');
+            this.scene.start('Play');
         }
     }
 
