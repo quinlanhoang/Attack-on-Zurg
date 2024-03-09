@@ -8,6 +8,9 @@ class Load extends Phaser.Scene {
         
         this.load.path = './assets/';
         //background
+        this.add.image('background', 'img/background.png')
+        this.add.image('stars', 'img/stars.png')
+        this.add.image('wallTexture', 'img/wallTexture.png')
         
         //special effects/animations
         
