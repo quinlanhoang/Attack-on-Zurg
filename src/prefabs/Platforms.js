@@ -16,3 +16,5 @@ class Platforms extends Phaser.Physics.Arcade.Sprite {
         scene.platforms.add(this);
     }
 }
+
+//
