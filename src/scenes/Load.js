@@ -22,20 +22,20 @@ class Load extends Phaser.Scene {
         
         this.load.path = './assets/';
         //background
-        this.add.image('background', 'img/background.png')
-        this.add.image('stars', 'img/stars.png')
-        this.add.image('wallTexture', 'img/wallTexture.png')
+        this.load.image('background', 'img/background.png')
+        this.load.image('stars', 'img/stars.png')
+        this.load.image('wallTexture', 'img/wallTexture.png')
         
         //special effects/animations
         
 
         //character graphics
-        this.add.image('buzz', 'assets/img/buzz.png')
-        this.add.image('zurg', 'img/zurg.png')
-        this.add.image('enemy', 'img/enemy.png')
+        this.load.image('buzz', '/img/buzz.png')
+        this.load.image('zurg', 'img/zurg.png')
+        this.load.image('enemy', 'img/enemy.png')
 
         //other assets
-        this.add.image('platform', 'img/temp_platform.png')
+        this.load.image('temp_platform', 'img/temp_platform.png')
 
         //audio
         // this.load.audio('death')
