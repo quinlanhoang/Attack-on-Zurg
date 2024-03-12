@@ -5,6 +5,9 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.world.enable(this);
 
+        //audio implementations
+        this.jumpSound = scene.sound.add('jump');
+
         //buzz physics
         this.setCollideWorldBounds(true);
         this.body.setSize(40, 80); //adjust as needed
@@ -22,7 +25,9 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
     update() {
         //handle player key input
         if (this.keys.up.isDown && this.body.onFloor()) {
-            this.setVelocityY(-600); //adjust as needed
+            this.setVelocityY(-500); //adjust as needed
+            this.jumpSound.play();
+
         }
 
         if (this.keys.left.isDown) {

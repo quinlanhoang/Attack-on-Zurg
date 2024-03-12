@@ -26,10 +26,10 @@ let config = {
 let game = new Phaser.Game(config);
 
 //define globals 
-let centerX = game.config.width/2;
-let centerY = game.config.height/2;
-let w = game.config.width;
-let h = game.config.height;
+let centerX = game.config.width/2; //used
+let centerY = game.config.height/2; //used
+let w = game.config.width; //used
+let h = game.config.height; //used
 let level;
 let highScore;
 let newHighScore = false;

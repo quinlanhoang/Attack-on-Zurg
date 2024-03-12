@@ -41,6 +41,7 @@ class Load extends Phaser.Scene {
         // this.load.audio('death')
         // this.load.audio('laser')
         // this.load.audio('enemyShoot')
+        this.load.audio('jump', '/audio/woosh.mp3')
 
         //font by Ænigma
         this.load.bitmapFont('edit', 'fonts/edit.png', 'fonts/edit.xml');
