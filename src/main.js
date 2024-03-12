@@ -2,7 +2,7 @@
 //Attack on Zurg
 
 //main
-
+'use strict';
 
 //define and config main Phaser game object
 let config = {

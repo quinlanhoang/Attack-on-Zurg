@@ -6,7 +6,6 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
         scene.physics.world.enable(this);
 
         //buzz physics
-        this.setBounce(0.2);
         this.setCollideWorldBounds(true);
         this.body.setSize(40, 80); //adjust as needed
         this.body.allowGravity = true;
@@ -27,11 +26,11 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
         }
 
         if (this.keys.left.isDown) {
-            this.setVelocityX(-100);
+            this.setVelocityX(-200);
         }
 
         else if(this.keys.right.isDown) {
-            this.setVelocityX(100);
+            this.setVelocityX(200);
         }
 
         else {

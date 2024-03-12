@@ -4,9 +4,9 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-        // this.background = this.add.tileSprite(0, 0, 960, 640, 'background').setOrigin(0, 0)
-        // this.stars = this.add.tileSprite(0, 0, 960, 640, 'stars').setOrigin(0, 0)
-        // this.wallTexture = this.add.tileSprite(0, 0, 960, 640, 'wallTexture').setOrigin(0, 0)
+        this.background = this.add.tileSprite(0, 0, 960, 640, 'background').setOrigin(0, 0)
+        this.stars = this.add.tileSprite(0, 0, 960, 640, 'stars').setOrigin(0, 0)
+        this.wallTexture = this.add.tileSprite(0, 0, 960, 640, 'wallTexture').setOrigin(0, 0)
 
         //platform iterations
         this.platforms = this.physics.add.group();
@@ -29,8 +29,8 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        // this.stars.tilePositionX -= 1
-        // this.wallTexture.tilePositionY -= 1
+        this.stars.tilePositionX -= 1
+        this.wallTexture.tilePositionY -= 1
 
         //destroys platforms out of bounds
         this.platforms.children.iterate(platform => {
@@ -65,14 +65,14 @@ class Play extends Phaser.Scene {
         const tempPlatformY = config.height / 2;
         
         this.tempPlatform = new Platforms(this, tempPlatformX, tempPlatformY);
-        this.tempPlatform.setDisplaySize(200, 20);
+        this.tempPlatform.setDisplaySize(800, 20);
         this.tempPlatform.body.allowGravity = false;
         this.tempPlatform.body.immovable = true;
         this.tempPlatform.body.setCollideWorldBounds(true);
         this.platforms.add(this.tempPlatform);
 
         //destroys after 5 secs
-        this.time.delayedCall(5000, () => {
+        this.time.delayedCall(10000, () => {
             this.tempPlatform.destroy();
         });
     }
