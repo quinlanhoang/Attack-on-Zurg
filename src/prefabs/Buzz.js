@@ -31,11 +31,11 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
         }
 
         if (this.keys.left.isDown) {
-            this.setVelocityX(-200);
+            this.setVelocityX(-300);
         }
 
         else if(this.keys.right.isDown) {
-            this.setVelocityX(200);
+            this.setVelocityX(300);
         }
 
         else {
@@ -43,7 +43,7 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
         }
 
         if (!this.body.onFloor()) {
-            this.setGravityY(300);
+            this.setGravityY(500);
         }
         
         else {

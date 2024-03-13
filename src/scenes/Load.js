@@ -22,26 +22,27 @@ class Load extends Phaser.Scene {
         
         this.load.path = './assets/';
         //background
-        this.load.image('background', 'img/background.png')
-        this.load.image('stars', 'img/stars.png')
-        this.load.image('wallTexture', 'img/wallTexture.png')
+        this.load.image('background', 'img/background.png');
+        this.load.image('stars', 'img/stars.png');
+        this.load.image('wallTexture', 'img/wallTexture.png');
         
         //special effects/animations
         
 
         //character graphics
-        this.load.image('buzz', '/img/buzz.png')
-        this.load.image('zurg', 'img/zurg.png')
-        this.load.image('enemy', 'img/enemy.png')
+        this.load.image('buzz', '/img/buzz.png');
+        this.load.image('zurg', 'img/zurg.png');
+        this.load.image('enemy', 'img/enemy.png');
 
         //other assets
-        this.load.image('temp_platform', 'img/temp_platform.png')
+        this.load.image('temp_platform', 'img/temp_platform.png');
+        this.load.spritesheet('plasma', 'img/plasma.png', {frameWidth: 60, frameHeight: 13});
 
         //audio
         // this.load.audio('death')
         // this.load.audio('laser')
         // this.load.audio('enemyShoot')
-        this.load.audio('jump', '/audio/woosh.mp3')
+        this.load.audio('jump', '/audio/woosh.mp3');
 
         //font by Ænigma
         this.load.bitmapFont('edit', 'fonts/edit.png', 'fonts/edit.xml');

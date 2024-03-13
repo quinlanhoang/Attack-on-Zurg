@@ -20,12 +20,24 @@ class Play extends Phaser.Scene {
 
         this.tempPlatform();
 
+        //plasma shot iterations
+        this.plasmas = this.physics.add.group();
+
+        this.time.addEvent({
+            delay: Phaser.Math.Between(2000, 4000),
+            callback: this.spawnPlasma,
+            callbackScope: this,
+            loop: true
+        });
+
         //create buzz
         this.buzz = new Buzz (this, this.tempPlatform.x + this.tempPlatform.width / 2, this.tempPlatform.y - 50, 'buzz');
         //buzz platform collider
         this.physics.add.collider(this.buzz, this.platforms, (buzz, platform) => {
             platform.body.immovable = true;
         });
+
+        this.physics.add.collider(this.buzz, this.plasmas, this.gameover, null, this);
     }
 
     update() {
@@ -76,9 +88,23 @@ class Play extends Phaser.Scene {
             this.tempPlatform.destroy();
         });
     }
+
+    spawnPlasma() {
+        const plasma_height = [100,300,500,700];
+        Phaser.Math.RND.shuffle(plasma_height); // Shuffle the array to get random heights
+
+        for (let i = 0; i < 2; i++) {
+            const layer = plasma_height[i];
+
+            // create a new instance of the Platforms class
+            const plasma = new Plasma(this, config.width + 150, layer);
+            plasma.setVelocityX(-500);
+        }
+    }
+    
     
 
-    gameover() {
+    gameover(buzz, plasma) {
         this.scene.start('Gameover');
     }
 }
