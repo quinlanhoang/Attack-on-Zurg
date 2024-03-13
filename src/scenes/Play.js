@@ -38,6 +38,8 @@ class Play extends Phaser.Scene {
         });
 
         this.physics.add.collider(this.buzz, this.plasmas, this.gameover, null, this);
+
+        this.zurg = new Zurg(this, game.config.width - 50, game.config.height / 2, 'zurg');
     }
 
     update() {
@@ -90,20 +92,40 @@ class Play extends Phaser.Scene {
     }
 
     spawnPlasma() {
-        const plasma_height = [100,300,500,700];
-        Phaser.Math.RND.shuffle(plasma_height); // Shuffle the array to get random heights
+        const plasma = new Plasma(this, this.zurg.x, this.zurg.y);
+        const velocityX = -500;
+        
+        //set velocity
+        plasma.setVelocity(velocityX, 0);
+        //delete when out of bounds
+        plasma.checkOutOfBounds = true;
 
-        for (let i = 0; i < 2; i++) {
-            const layer = plasma_height[i];
+        //second shot after .5 second delay
+        this.time.delayedCall(500, () => {
+            const plasma2 = new Plasma(this, this.zurg.x, this.zurg.y);
+            plasma2.setVelocity(velocityX, 0);
+            plasma2.checkOutOfBounds = true;    
+        });
+        //third shot after 1 second delay
+        this.time.delayedCall(1000, () => {
+            const plasma3 = new Plasma(this, this.zurg.x, this.zurg.y);
+            plasma3.setVelocity(velocityX, 0);
+            plasma3.checkOutOfBounds = true;    
+        })
+    }
+    
+    zurgShoot() {
+        //check if Zurg has blinked before shooting
+        if (this.zurg.y % 200 === 0) {
+            const plasma = new Plasma(this, this.zurg.x, this.zurg.y);
 
-            // create a new instance of the Platforms class
-            const plasma = new Plasma(this, config.width + 150, layer);
-            plasma.setVelocityX(-500);
+            const velocityX = -500;
+            plasma.setVelocity(velocityX, 0);
+
+            plasma.checkOutOfBounds = true;
         }
     }
     
-    
-
     gameover(buzz, plasma) {
         this.scene.start('Gameover');
     }
