@@ -94,20 +94,21 @@ class Play extends Phaser.Scene {
     spawnPlasma() {
         const plasma = new Plasma(this, this.zurg.x, this.zurg.y);
         const velocityX = -500;
+        this.sound.play('zurgAttack');
         
         //set velocity
         plasma.setVelocity(velocityX, 0);
         //delete when out of bounds
         plasma.checkOutOfBounds = true;
 
-        //second shot after .5 second delay
-        this.time.delayedCall(500, () => {
+        //second shot after .25 second delay
+        this.time.delayedCall(250, () => {
             const plasma2 = new Plasma(this, this.zurg.x, this.zurg.y);
             plasma2.setVelocity(velocityX, 0);
             plasma2.checkOutOfBounds = true;    
         });
-        //third shot after 1 second delay
-        this.time.delayedCall(1000, () => {
+        //third shot after .5 second delay
+        this.time.delayedCall(500, () => {
             const plasma3 = new Plasma(this, this.zurg.x, this.zurg.y);
             plasma3.setVelocity(velocityX, 0);
             plasma3.checkOutOfBounds = true;    
