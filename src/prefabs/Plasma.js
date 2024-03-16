@@ -9,12 +9,12 @@ class Plasma extends Phaser.Physics.Arcade.Sprite{
         this.setScale(3);
 
         scene.anims.create({
-            key : 'fired',
-            frames: scene.anims.generateFrameNumbers('plasma', {start: 0, end: 4}),
+            key : 'plasma',
+            frames: scene.anims.generateFrameNumbers('plasma', {start: 0, end: 3}),
             framerate: 1,
             repeat: -1
         });
 
-        this.play('fired', true);
+        this.play('plasma', true);
     }
 }

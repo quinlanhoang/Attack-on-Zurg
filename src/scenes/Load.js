@@ -37,6 +37,7 @@ class Load extends Phaser.Scene {
         //other assets
         this.load.image('temp_platform', 'img/temp_platform.png');
         this.load.spritesheet('plasma', 'img/plasma.png', {frameWidth: 60, frameHeight: 13});
+        this.load.spritesheet('laserbeam', 'img/laserbeam.png', {frameWidth: 40, frameHeight: 3});
 
         //audio
         // this.load.audio('death')

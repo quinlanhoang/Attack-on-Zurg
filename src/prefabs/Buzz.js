@@ -19,7 +19,12 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
             down: Phaser.Input.Keyboard.KeyCodes.S,
             left: Phaser.Input.Keyboard.KeyCodes.A,
             right: Phaser.Input.Keyboard.KeyCodes.D,
+            space: Phaser.Input.Keyboard.KeyCodes.SPACE
         });
+
+        //shooting properties 
+        this.lastShootTime = 0;
+        this.shootCooldown = 10000; //cooldown period
     }
 
     update() {
@@ -49,6 +54,21 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
         else {
             this.setGravityY(0);
         }
+
+        if (Phaser.Input.Keyboard.JustDown(this.keys.space)) {
+            this.shootLaser();
+        }
     }
 
+    shootLaser() {
+        //cooldown checker
+        const currentTime = this.scene.time.now;
+        if (currentTime - this.lastShootTime < this.shootCooldown) {
+            return; //exits if still in cooldown
+        } 
+
+        const laserbeam = new Laserbeam(this.scene, this.x, this.y);
+        
+        this.lastShootTime = currentTime;
+    }
 }

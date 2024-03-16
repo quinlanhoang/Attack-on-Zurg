@@ -4,6 +4,7 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        //background
         this.background = this.add.tileSprite(0, 0, w, h, 'background').setOrigin(0, 0)
         this.stars = this.add.tileSprite(0, 0, w, h, 'stars').setOrigin(0, 0)
         this.wallTexture = this.add.tileSprite(0, 0, w, h, 'wallTexture').setOrigin(0, 0)
