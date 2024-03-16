@@ -9,7 +9,7 @@ let config = {
     parent : 'myGame',
     type : Phaser.AUTO,
     width : 1500,
-    height : 900,
+    height : 1000,
     scale : {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },

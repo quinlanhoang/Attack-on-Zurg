@@ -1,5 +1,5 @@
 class Buzz extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, texture, frame) { 
+    constructor(scene, x, y, texture, frame, healthChangedCallback) { 
         super(scene, x, y, texture, frame);
 
         scene.add.existing(this);
@@ -25,6 +25,10 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
         //shooting properties 
         this.lastShootTime = 0;
         this.shootCooldown = 10000; //cooldown period
+
+        //health properties
+        this.health = 100;
+        this.healthChangedCallback = healthChangedCallback;
     }
 
     update() {
@@ -70,5 +74,13 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
         const laserbeam = new Laserbeam(this.scene, this.x, this.y);
         
         this.lastShootTime = currentTime;
+    }
+
+    updateHealth(newHealth) {
+        this.health = newHealth;
+        
+        if (this.healthChangedCallback) {
+            this.healthChangedCallback(newHealth);
+        }
     }
 }

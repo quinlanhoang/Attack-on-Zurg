@@ -32,15 +32,30 @@ class Play extends Phaser.Scene {
         });
 
         //create buzz
-        this.buzz = new Buzz (this, this.tempPlatform.x + this.tempPlatform.width / 2, this.tempPlatform.y - 50, 'buzz');
-        //buzz platform collider
+        this.buzz = new Buzz(this, this.tempPlatform.x + this.tempPlatform.width / 2, this.tempPlatform.y - 50, 'buzz', null, this.updateHealthBars.bind(this));
+        //create zurg
+        this.zurg = new Zurg(this, game.config.width - 50, game.config.height / 2, 'zurg', null, this.updateHealthBars.bind(this));
+
+        //collision handlers
         this.physics.add.collider(this.buzz, this.platforms, (buzz, platform) => {
             platform.body.immovable = true;
         });
 
-        this.physics.add.collider(this.buzz, this.plasmas, this.gameover, null, this);
+        this.physics.add.overlap(this.buzz, this.plasmas, this.hitBuzz, null, this);
+        this.physics.add.overlap(this.zurg, this.laserbeam, this.hitZurg, null, this);
 
-        this.zurg = new Zurg(this, game.config.width - 50, game.config.height / 2, 'zurg');
+        //headshot icons
+        this.buzzHeadshot = this.add.image(15 , game.config.height - 15, 'buzz_headshot').setOrigin(0, 1).setScale(3);
+        this.zurgHeadshot = this.add.image(game.config.width - 15, game.config.height - 15, 'zurg_headshot').setOrigin(1, 1).setScale(3);
+        //health bars
+        this.buzzHealthBar = this.add.graphics();
+        this.zurgHealthBar = this.add.graphics();
+        //health bar positioning
+        this.buzzHealthBar.setPosition(20, game.config.height - 40);
+        this.zurgHealthBar.setPosition(game.config.width - 220, game.config.height - 40);
+
+        this.updateHealthBars();
+
     }
 
     update() {
@@ -127,6 +142,41 @@ class Play extends Phaser.Scene {
             plasma.checkOutOfBounds = true;
         }
     }
+
+    hitBuzz(buzz, plasma) {
+        //destroys upon contact
+        plasma.destroy();
+       //decreases health
+        buzz.health -= 10;
+        //updates UI
+        this.updateHealthBars();
+        if (buzz.health <= 0) {
+            this.gameover();
+        }
+    }
+
+    hitZurg(zurg, laserbeam) {
+        laserbeam.destroy();
+        zurg.health -= 50;
+        this.updateHealthBars();
+        if (zurg.health <= 0) {
+            this.gameover();
+        }
+    }
+
+    updateHealthBars(newHealth) {
+    // Buzz's health bar
+    this.buzzHealthBar.clear();
+    this.buzzHealthBar.fillStyle(0x00FF00, 1);
+    const buzzHealthWidth = this.buzz.health / 100 * 500;
+    this.buzzHealthBar.fillRect(20, game.config.height - 40, buzzHealthWidth, 20);
+    
+    // Zurg's health bar
+    this.zurgHealthBar.clear();
+    this.zurgHealthBar.fillStyle(0xFF0000, 1);
+    const zurgHealthWidth = this.zurg.health / 1000 * 500;
+    this.zurgHealthBar.fillRect(game.config.width - 220, game.config.height - 40, zurgHealthWidth, 20);
+}
     
     gameover(buzz, plasma) {
         this.scene.start('Gameover');

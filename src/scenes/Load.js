@@ -31,6 +31,8 @@ class Load extends Phaser.Scene {
 
         //character graphics
         this.load.image('buzz', '/img/buzz.png');
+        this.load.image('buzz_headshot', '/img/buzz_headshot.png');
+        this.load.image('zurg_headshot', '/img/zurg_headshot.png');
         this.load.image('zurg', 'img/zurg.png');
         this.load.image('enemy', 'img/enemy.png');
 

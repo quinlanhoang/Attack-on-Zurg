@@ -1,5 +1,5 @@
 class Zurg extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, texture, frame) {
+    constructor(scene, x, y, texture, frame, healthChangedCallback) {
         super(scene, x, y, texture, frame);
         
         scene.add.existing(this);
@@ -10,6 +10,10 @@ class Zurg extends Phaser.Physics.Arcade.Sprite {
         
         //initalize blinking
         this.blinkZurg();
+
+        //health
+        this.health = 1000;
+        this.healthChangedCallback = healthChangedCallback;
     }
 
     blinkZurg() {
@@ -28,6 +32,13 @@ class Zurg extends Phaser.Physics.Arcade.Sprite {
         const nextBlink = Phaser.Math.RND.between(2000, 4000);
         this.scene.time.delayedCall(nextBlink, this.blinkZurg , [], this);
 
+    }
+
+    updateHealth(newHealth) {
+        this.health = newHealth;
+        if (this.healthChangedCallback) {
+            this.healthChangedCallback(newHealth);
+        }
     }
 }
     
