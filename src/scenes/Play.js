@@ -45,8 +45,8 @@ class Play extends Phaser.Scene {
         this.physics.add.overlap(this.zurg, this.laserbeam, this.hitZurg, null, this);
 
         //headshot icons
-        this.buzzHeadshot = this.add.image(15 , game.config.height - 15, 'buzz_headshot').setOrigin(0, 1).setScale(3);
-        this.zurgHeadshot = this.add.image(game.config.width - 15, game.config.height - 15, 'zurg_headshot').setOrigin(1, 1).setScale(3);
+        this.buzzHeadshot = this.add.image(15 , game.config.height - 11, 'buzz_headshot').setOrigin(0, 1).setScale(3);
+        this.zurgHeadshot = this.add.image(game.config.width - 15, game.config.height - 11, 'zurg_headshot').setOrigin(1, 1).setScale(3);
         //health bars
         this.buzzHealthBar = this.add.graphics();
         this.zurgHealthBar = this.add.graphics();
@@ -54,6 +54,7 @@ class Play extends Phaser.Scene {
         this.buzzHealthBar.setPosition(20, game.config.height - 40);
         this.zurgHealthBar.setPosition(game.config.width - 220, game.config.height - 40);
 
+        this.createHealthBars();    
         this.updateHealthBars();
 
     }
@@ -164,18 +165,33 @@ class Play extends Phaser.Scene {
         }
     }
 
-    updateHealthBars(newHealth) {
+    createHealthBars() {
+        //buzz
+        this.buzzHealthBorder = this.add.graphics();
+        this.buzzHealthBorder.lineStyle(6, 0x000000, 1);
+        this.buzzHealthBorder.strokeRect(110, game.config.height - 43, 500, 30);
+        this.buzzHealthBar = this.add.graphics();
+        this.buzzHealthBar.setPosition(20, game.config.height - 40);
+        //zurg
+        this.zurgHealthBorder = this.add.graphics();
+        this.zurgHealthBorder.lineStyle(6, 0x000000, 1);
+        this.zurgHealthBorder.strokeRect(880, game.config.height - 43, 500, 30);
+        this.zurgHealthBar = this.add.graphics();
+        this.zurgHealthBar.setPosition(game.config.width - 220, game.config.height - 40);
+    }
+    
+    updateHealthBars() {
     // Buzz's health bar
     this.buzzHealthBar.clear();
     this.buzzHealthBar.fillStyle(0x00FF00, 1);
     const buzzHealthWidth = this.buzz.health / 100 * 500;
-    this.buzzHealthBar.fillRect(20, game.config.height - 40, buzzHealthWidth, 20);
+    this.buzzHealthBar.fillRect(90, 0, buzzHealthWidth, 25);
     
     // Zurg's health bar
     this.zurgHealthBar.clear();
     this.zurgHealthBar.fillStyle(0xFF0000, 1);
-    const zurgHealthWidth = this.zurg.health / 1000 * 500;
-    this.zurgHealthBar.fillRect(game.config.width - 220, game.config.height - 40, zurgHealthWidth, 20);
+    const zurgHealthWidth = this.zurg.health / 1000 * 500 ;
+    this.zurgHealthBar.fillRect(-400 , 0, zurgHealthWidth, 25);
 }
     
     gameover(buzz, plasma) {
