@@ -6,7 +6,7 @@ class Platforms extends Phaser.Physics.Arcade.Sprite {
         scene.physics.world.enable(this);
 
         // set the size of the platform as needed
-        this.setDisplaySize(200, 20); // adjust as needed
+        this.setDisplaySize(180, 20); // adjust as needed
         
         this.body.allowGravity = false;
         this.body.immovable = true;

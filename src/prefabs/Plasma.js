@@ -5,8 +5,11 @@ class Plasma extends Phaser.Physics.Arcade.Sprite{
         scene.add.existing(this);
         scene.physics.world.enable(this);
 
+        this.body.setSize(20, 15); //adjust as needed  
+        this.body.setOffset(0, 0);
+        
         this.setVelocityX(-500);
-        this.setScale(3);
+        this.setScale(3.5);
 
         scene.anims.create({
             key : 'plasma',

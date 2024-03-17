@@ -10,7 +10,7 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
 
         //buzz physics
         this.setCollideWorldBounds(true);
-        this.body.setSize(50, 90); //adjust as needed
+        this.body.setSize(65, 100); //adjust as needed   
         this.body.allowGravity = true;
 
         //define hotkeys for movement
@@ -24,7 +24,7 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
 
         //shooting properties 
         this.lastShootTime = 0;
-        this.shootCooldown = 10000; //cooldown period
+        this.shootCooldown = 5000; //cooldown period
 
         //health properties
         this.health = 100;
@@ -72,7 +72,7 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
         } 
 
         const laserbeam = new Laserbeam(this.scene, this.x, this.y);
-        const velocityX = 1000; // Adjust as needed
+        const velocityX = 2000; // Adjust as needed
         laserbeam.setVelocityX(velocityX, 0);
         this.lastShootTime = currentTime;
     }

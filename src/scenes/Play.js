@@ -145,7 +145,7 @@ class Play extends Phaser.Scene {
 
     spawnLaserbeam() {
         const laserbeam = new Laserbeam(this, this.buzz.x, this.buzz.y);
-        const velocityX = 1000; // Adjust as needed
+        const velocityX = 2000; // Adjust as needed
         laserbeam.setVelocityX(velocityX, 0);
         laserbeam.checkOutOfBounds = true;
     }
@@ -164,6 +164,10 @@ class Play extends Phaser.Scene {
 
     hitBuzz(buzz, plasma) {
         console.log("Buzz was hit");
+        //flash red
+        buzz.setTint(0xff0000);
+        //shake camera
+        this.cameras.main.shake(100, 0.01);
         //destroys upon contact
         plasma.destroy();
         console.log("Plamsa destroyed")
@@ -175,16 +179,28 @@ class Play extends Phaser.Scene {
         if (buzz.health <= 0) {
             this.gameover();
         }
+
+        //remove tint after delay
+        this.time.delayedCall(200, () => {
+            buzz.clearTint();
+        });
     }
 
     hitZurg(zurg, laserbeam) {
         console.log("Zurg was hit");
+        zurg.setTint(0xff0000);
+        this.cameras.main.shake(500, 0.01);
         laserbeam.destroy();
+        console.log("Laserbeam destroyed")
         this.zurg.health -= 50;
         this.updateHealthBars();
         if (zurg.health <= 0) {
             this.gameover();
         }
+
+        this.time.delayedCall(200, () => {
+            zurg.clearTint();
+        });
     }
 
     createHealthBars() {

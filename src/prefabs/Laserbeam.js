@@ -5,7 +5,7 @@ class Laserbeam extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.world.enable(this);
 
-        this.setVelocityX(1000);
+        this.setVelocityX(2000);
         this.setScale(3);
 
         scene.anims.create({
