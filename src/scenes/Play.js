@@ -10,7 +10,10 @@ class Play extends Phaser.Scene {
         this.wallTexture = this.add.tileSprite(0, 0, w, h, 'wallTexture').setOrigin(0, 0)
 
         //platform iterations
-        this.platforms = this.physics.add.group();
+        this.platforms = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
 
         this.time.addEvent({
             delay: 1000,
@@ -22,7 +25,16 @@ class Play extends Phaser.Scene {
         this.tempPlatform();
 
         //plasma shot iterations
-        this.plasmas = this.physics.add.group();
+        this.plasmas = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
+
+        //laserbeam shot iterations
+        this.laserbeams = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
 
         this.time.addEvent({
             delay: Phaser.Math.Between(2000, 4000),
@@ -37,12 +49,10 @@ class Play extends Phaser.Scene {
         this.zurg = new Zurg(this, game.config.width - 50, game.config.height / 2, 'zurg', null, this.updateHealthBars.bind(this));
 
         //collision handlers
-        this.physics.add.collider(this.buzz, this.platforms, (buzz, platform) => {
-            platform.body.immovable = true;
-        });
+        this.physics.add.collider(this.buzz, this.platforms);
 
         this.physics.add.overlap(this.buzz, this.plasmas, this.hitBuzz, null, this);
-        this.physics.add.overlap(this.zurg, this.laserbeam, this.hitZurg, null, this);
+        this.physics.add.overlap(this.zurg, this.laserbeams, this.hitZurg, null, this);
 
         //headshot icons
         this.buzzHeadshot = this.add.image(15 , game.config.height - 11, 'buzz_headshot').setOrigin(0, 1).setScale(3);
@@ -62,13 +72,14 @@ class Play extends Phaser.Scene {
     update() {
         this.stars.tilePositionX -= 1
         this.wallTexture.tilePositionY -= 1
-
+        
         //destroys platforms out of bounds
         this.platforms.children.iterate(platform => {
             if (platform && platform.x !== undefined) {
                 platform.x -= 1;
 
                 if (platform.x < platform.width - 150) {
+                    console.log("Platform destroyed");
                     platform.destroy();
                 }
             }
@@ -131,6 +142,13 @@ class Play extends Phaser.Scene {
             plasma3.checkOutOfBounds = true;    
         })
     }
+
+    spawnLaserbeam() {
+        const laserbeam = new Laserbeam(this, this.buzz.x, this.buzz.y);
+        const velocityX = 1000; // Adjust as needed
+        laserbeam.setVelocityX(velocityX, 0);
+        laserbeam.checkOutOfBounds = true;
+    }
     
     zurgShoot() {
         //check if Zurg has blinked before shooting
@@ -145,10 +163,13 @@ class Play extends Phaser.Scene {
     }
 
     hitBuzz(buzz, plasma) {
+        console.log("Buzz was hit");
         //destroys upon contact
         plasma.destroy();
+        console.log("Plamsa destroyed")
        //decreases health
-        buzz.health -= 10;
+        
+       this.buzz.health -= 10;
         //updates UI
         this.updateHealthBars();
         if (buzz.health <= 0) {
@@ -157,8 +178,9 @@ class Play extends Phaser.Scene {
     }
 
     hitZurg(zurg, laserbeam) {
+        console.log("Zurg was hit");
         laserbeam.destroy();
-        zurg.health -= 50;
+        this.zurg.health -= 50;
         this.updateHealthBars();
         if (zurg.health <= 0) {
             this.gameover();
@@ -185,16 +207,18 @@ class Play extends Phaser.Scene {
     this.buzzHealthBar.clear();
     this.buzzHealthBar.fillStyle(0x00FF00, 1);
     const buzzHealthWidth = this.buzz.health / 100 * 500;
-    this.buzzHealthBar.fillRect(90, 0, buzzHealthWidth, 25);
+    const buzzHealthX = 90; 
+    this.buzzHealthBar.fillRect(buzzHealthX, 0, buzzHealthWidth, 25);
     
     // Zurg's health bar
     this.zurgHealthBar.clear();
     this.zurgHealthBar.fillStyle(0xFF0000, 1);
-    const zurgHealthWidth = this.zurg.health / 1000 * 500 ;
-    this.zurgHealthBar.fillRect(-400 , 0, zurgHealthWidth, 25);
+    const zurgHealthWidth = this.zurg.health / 1000 * 500;
+    const zurgHealthX =  -400; 
+    this.zurgHealthBar.fillRect(zurgHealthX, 0, zurgHealthWidth, 25);
 }
     
-    gameover(buzz, plasma) {
+    gameover() {
         this.scene.start('Gameover');
     }
 }

@@ -1,6 +1,6 @@
 class Platforms extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
-        super(scene, x, y, 'temp_platform');
+        super(scene, x, y, 'platform');
 
         scene.add.existing(this);
         scene.physics.world.enable(this);
@@ -14,5 +14,9 @@ class Platforms extends Phaser.Physics.Arcade.Sprite {
 
         // add this platform to the existing platforms group in the Play scene
         scene.platforms.add(this);
+
+        //platform gravity timer
+        this.timer = null;
+        this.timerStarted = false;
     }
 }

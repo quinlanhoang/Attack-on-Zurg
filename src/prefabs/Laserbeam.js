@@ -1,4 +1,4 @@
-class Laserbeam extends Phaser.Physics.Arcade.Sprite{ 
+class Laserbeam extends Phaser.Physics.Arcade.Sprite { 
     constructor(scene, x, y) {
         super(scene, x, y, 'laserbeam');
 
@@ -17,6 +17,6 @@ class Laserbeam extends Phaser.Physics.Arcade.Sprite{
 
         this.play('laser', true);
 
-        this.checkoutOfBounds = true;
+        scene.laserbeams.add(this);
     }
 }

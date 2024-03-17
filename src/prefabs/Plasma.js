@@ -16,5 +16,7 @@ class Plasma extends Phaser.Physics.Arcade.Sprite{
         });
 
         this.play('plasma', true);
+
+        scene.plasmas.add(this);
     }
 }
