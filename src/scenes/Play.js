@@ -3,7 +3,7 @@ class Play extends Phaser.Scene {
         super('Play');
     }
 
-    create() {
+    create() {   
         //background
         this.background = this.add.tileSprite(0, 0, w, h, 'background').setOrigin(0, 0)
         this.stars = this.add.tileSprite(0, 0, w, h, 'stars').setOrigin(0, 0)
@@ -22,7 +22,19 @@ class Play extends Phaser.Scene {
             loop: true
         });
 
-        this.tempPlatform();
+        //temp platform
+        const tempPlatformX = game.config.width / 2 - 100; 
+        const tempPlatformY = game.config.height / 2 - 100; 
+        this.tempPlatform = this.physics.add.sprite(tempPlatformX, tempPlatformY, 'platform').setOrigin(0, 0);
+        this.tempPlatform.displayWidth = 200; 
+        this.tempPlatform.displayHeight = 20;
+        this.tempPlatform.setImmovable(true);
+        this.time.addEvent({
+            delay: 4000, 
+            callback: this.removeTemp,
+            callbackScope: this
+        });
+    
 
         //plasma shot iterations
         this.plasmas = this.physics.add.group({
@@ -44,13 +56,17 @@ class Play extends Phaser.Scene {
         });
 
         //create buzz
-        this.buzz = new Buzz(this, this.tempPlatform.x + this.tempPlatform.width / 2, this.tempPlatform.y - 50, 'buzz', null, this.updateHealthBars.bind(this));
+        const buzzStartingX = game.config.width / 2;
+        const buzzStartingY = tempPlatformY - 50; 
+        this.buzz = new Buzz(this, buzzStartingX, buzzStartingY, 'buzz', null, this.updateHealthBars.bind(this));
         this.buzzHit = this.sound.add('buzzHit');
         //create zurg
         this.zurg = new Zurg(this, game.config.width - 50, game.config.height / 2, 'zurg', null, this.updateHealthBars.bind(this));
         this.zurgHit = this.sound.add('zurgHit');
 
         //collision handlers
+        
+        this.physics.add.collider(this.buzz, this.tempPlatform);
         this.physics.add.collider(this.buzz, this.platforms);
 
         this.physics.add.overlap(this.buzz, this.plasmas, this.hitBuzz, null, this);
@@ -103,6 +119,10 @@ class Play extends Phaser.Scene {
 
         this.buzz.update();
 
+        //death upon falling off
+        if (this.buzz.y > game.config.height) {
+            this.gameOver();
+        }
         //overlay cooldown
         const currentTime = this.time.now;
         const cooldownRemaining = this.buzz.shootCooldown - (currentTime - this.buzz.lastShootTime);
@@ -110,6 +130,17 @@ class Play extends Phaser.Scene {
         this.cooldown.alpha = 1 - alpha;
     }
 
+    removeTemp() {
+        this.tweens.add({
+            targets: this.tempPlatform,
+            y: game.config.height + 100, // move below the screen
+            duration: 2000, 
+            onComplete: () => {
+                this.tempPlatform.destroy();
+            }
+        }); 
+    }
+    
     //layer and spawn mechanics 
     spawnPlatform() {
         const platform_height = [200,400,600,800];
@@ -122,23 +153,6 @@ class Play extends Phaser.Scene {
             const platform = new Platforms(this, config.width + 150, layer);
             platform.setVelocityX(-65);
         }
-    }
-
-    tempPlatform() {
-        const tempPlatformX = 0;
-        const tempPlatformY = config.height / 2;
-        
-        this.tempPlatform = new Platforms(this, tempPlatformX, tempPlatformY);
-        this.tempPlatform.setDisplaySize(800, 20);
-        this.tempPlatform.body.allowGravity = false;
-        this.tempPlatform.body.immovable = true;
-        this.tempPlatform.body.setCollideWorldBounds(true);
-        this.platforms.add(this.tempPlatform);
-
-        //destroys after 5 secs
-        this.time.delayedCall(10000, () => {
-            this.tempPlatform.destroy();
-        });
     }
 
     spawnPlasma() {
