@@ -45,8 +45,10 @@ class Play extends Phaser.Scene {
 
         //create buzz
         this.buzz = new Buzz(this, this.tempPlatform.x + this.tempPlatform.width / 2, this.tempPlatform.y - 50, 'buzz', null, this.updateHealthBars.bind(this));
+        this.buzzHit = this.sound.add('buzzHit');
         //create zurg
         this.zurg = new Zurg(this, game.config.width - 50, game.config.height / 2, 'zurg', null, this.updateHealthBars.bind(this));
+        this.zurgHit = this.sound.add('zurgHit');
 
         //collision handlers
         this.physics.add.collider(this.buzz, this.platforms);
@@ -67,6 +69,11 @@ class Play extends Phaser.Scene {
         this.createHealthBars();    
         this.updateHealthBars();
 
+        //cooldown overlay
+        this.cooldown = this.add.sprite(game.config.width / 2, game.config.height - 30, 'refresh').setScale(5);
+        this.cooldown.setDepth(1);
+        this.cooldown.alpha = 0;
+
     }
 
     update() {
@@ -85,7 +92,22 @@ class Play extends Phaser.Scene {
             }
         });
 
+        this.plasmas.children.iterate(plasma => {
+            if (plasma && plasma.x !== undefined && plasma.checkOutOfBounds) {
+                if (plasma.x < -100) {
+                    console.log("Plasma destroyed");
+                    plasma.destroy();
+                }
+            }
+        });
+
         this.buzz.update();
+
+        //overlay cooldown
+        const currentTime = this.time.now;
+        const cooldownRemaining = this.buzz.shootCooldown - (currentTime - this.buzz.lastShootTime);
+        const alpha = Phaser.Math.Clamp(cooldownRemaining / this.buzz.shootCooldown, 0, 1);
+        this.cooldown.alpha = 1 - alpha;
     }
 
     //layer and spawn mechanics 
@@ -168,6 +190,8 @@ class Play extends Phaser.Scene {
         buzz.setTint(0xff0000);
         //shake camera
         this.cameras.main.shake(100, 0.01);
+        //play audio
+        this.buzzHit.play();
         //destroys upon contact
         plasma.destroy();
         console.log("Plamsa destroyed")
@@ -190,6 +214,7 @@ class Play extends Phaser.Scene {
         console.log("Zurg was hit");
         zurg.setTint(0xff0000);
         this.cameras.main.shake(500, 0.01);
+        this.zurgHit.play();
         laserbeam.destroy();
         console.log("Laserbeam destroyed")
         this.zurg.health -= 50;

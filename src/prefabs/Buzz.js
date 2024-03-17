@@ -7,6 +7,7 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
 
         //audio implementations
         this.jumpSound = scene.sound.add('jump');
+        this.buzzAttack = scene.sound.add('buzzAttack')
 
         //buzz physics
         this.setCollideWorldBounds(true);
@@ -71,6 +72,7 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
             return; //exits if still in cooldown
         } 
 
+        this.buzzAttack.play();
         const laserbeam = new Laserbeam(this.scene, this.x, this.y);
         const velocityX = 2000; // Adjust as needed
         laserbeam.setVelocityX(velocityX, 0);

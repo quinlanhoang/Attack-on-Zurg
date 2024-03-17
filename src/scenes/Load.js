@@ -35,6 +35,7 @@ class Load extends Phaser.Scene {
         this.load.image('zurg_headshot', '/img/zurg_headshot.png');
         this.load.image('zurg', 'img/zurg.png');
         this.load.image('enemy', 'img/enemy.png');
+        this.load.image('refresh', 'img/refresh.png');
 
         //other assets
         this.load.image('platform', 'img/platform.png');
@@ -42,11 +43,11 @@ class Load extends Phaser.Scene {
         this.load.spritesheet('laserbeam', 'img/laserbeam.png', {frameWidth: 40, frameHeight: 3});
 
         //audio
-        // this.load.audio('death')
-        // this.load.audio('laser')
-        // this.load.audio('enemyShoot')
-        this.load.audio('jump', '/audio/woosh.mp3');
+        this.load.audio('jump', '/audio/jump.wav');
         this.load.audio('zurgAttack', 'audio/zurgAttack.mp3');
+        this.load.audio('buzzAttack', 'audio/buzzAttack.wav');
+        this.load.audio('buzzHit', 'audio/buzzHit.wav');
+        this.load.audio('zurgHit', 'audio/zurgHit.wav');
 
         //font by Ænigma
         this.load.bitmapFont('edit', 'fonts/edit.png', 'fonts/edit.xml');
