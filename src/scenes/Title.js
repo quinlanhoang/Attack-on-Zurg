@@ -64,7 +64,7 @@ class Title extends Phaser.Scene {
                 // take the snapshot img returned from callback and add to texture manager
                 textureManager.addImage('titlesnapshot', snapshotImage);
             });
-            this.scene.start('Play');
+            this.scene.start('Dialogue');
         }
     }
 }

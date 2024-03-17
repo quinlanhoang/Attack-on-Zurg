@@ -54,6 +54,9 @@ class Load extends Phaser.Scene {
         //font by Ænigma
         this.load.bitmapFont('edit', 'fonts/edit.png', 'fonts/edit.xml');
 
+        //json
+        this.load.json('dialog', 'json/dialog.json');
+
     }
 
     create() {

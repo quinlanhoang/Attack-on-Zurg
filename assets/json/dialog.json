@@ -1,0 +1,32 @@
+[
+	[
+		{
+			"speaker" : "buzz",
+			"dialog" : "Alright, lets get out of here!",
+			"newSpeaker" : true
+		},
+		{
+			"speaker" : "zurg",
+			"dialog" : "TRAITOR!!",
+			"newSpeaker": true
+		},
+		{
+			"speaker" : "zurg",
+			"dialog" : "I've had enough... Just tell me where the crystal is."
+		},
+		{
+			"speaker" : "zurg",
+			"dialog" : "Think we're not the same Buzz?? You're already me. You just don't know it yet."
+		},
+		{
+			"speaker" : "buzz",
+			"dialog" : "I'm never gonna be you!",
+			"newSpeaker": true
+		},
+		{
+			"speaker" : "zurg",
+			"dialog" : "Well if you're not gonna be me, you're not gonna be anyone!!",
+			"newSpeaker": true
+		}
+	]
+]  

@@ -16,10 +16,10 @@ let config = {
     physics : {
         default : 'arcade',
         arcade : {
-            debug: true
+            //debug: true
         }
     },
-    scene: [Load, Title, Play, Gameover, Victory]
+    scene: [Load, Title, Dialogue, Play, Gameover, Victory]
 };
 
 //defines game
