@@ -280,7 +280,7 @@ class Play extends Phaser.Scene {
     
     gameover() {
         this.scene.stop('Play');
-        this.scene.start('Victory');
+        this.scene.start('Gameover');
     }
 
     victory() {
