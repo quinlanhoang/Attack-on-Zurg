@@ -19,7 +19,7 @@ let config = {
             debug: true
         }
     },
-    scene: [Load, Title, Play, Gameover],
+    scene: [Load, Title, Play, Gameover, Victory]
 };
 
 //defines game

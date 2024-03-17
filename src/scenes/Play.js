@@ -9,6 +9,9 @@ class Play extends Phaser.Scene {
         this.stars = this.add.tileSprite(0, 0, w, h, 'stars').setOrigin(0, 0)
         this.wallTexture = this.add.tileSprite(0, 0, w, h, 'wallTexture').setOrigin(0, 0)
 
+        //world boundaries
+        this.physics.world.setBounds(0, 0, game.config.width, game.config.height + 100);
+
         //platform iterations
         this.platforms = this.physics.add.group({
             allowGravity: false,
@@ -120,8 +123,10 @@ class Play extends Phaser.Scene {
         this.buzz.update();
 
         //death upon falling off
-        if (this.buzz.y > game.config.height) {
-            this.gameOver();
+        if (this.buzz.y >  game.config.height + 45) {
+            this.buzz.health = 0;
+            this.updateHealthBars();
+            this.gameover();
         }
         //overlay cooldown
         const currentTime = this.time.now;
@@ -234,7 +239,7 @@ class Play extends Phaser.Scene {
         this.zurg.health -= 50;
         this.updateHealthBars();
         if (zurg.health <= 0) {
-            this.gameover();
+            this.victory();
         }
 
         this.time.delayedCall(200, () => {
@@ -274,6 +279,12 @@ class Play extends Phaser.Scene {
 }
     
     gameover() {
-        this.scene.start('Gameover');
+        this.scene.stop('Play');
+        this.scene.start('Victory');
+    }
+
+    victory() {
+        this.scene.stop('Play');
+        this.scene.start('Victory');
     }
 }

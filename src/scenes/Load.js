@@ -25,6 +25,8 @@ class Load extends Phaser.Scene {
         this.load.image('background', 'img/background.png');
         this.load.image('stars', 'img/stars.png');
         this.load.image('wallTexture', 'img/wallTexture.png');
+        this.load.image('gameover', 'img/gameover.png');
+        this.load.image('victory', 'img/victory.png');
         
         //special effects/animations
         

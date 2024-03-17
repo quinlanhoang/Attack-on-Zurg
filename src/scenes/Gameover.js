@@ -4,65 +4,38 @@ class Gameover extends Phaser.Scene {
     }
 
     create() {
-        if(localStorage.getItem('hiscore') != null) {
-            let storedScore = parseInt(localStorage.getItem('hiscore'));
-            if(level > storedScore) {
-                //console.log(`New high score: ${level}`);
-                localStorage.setItem('hiscore', level.toString());
-                highScore = level;
-                newHighScore = true;
-            } else {
-                //console.log('No new high score :/');
-                highScore = parseInt(localStorage.getItem('hiscore'));
-                newHighScore = false;
-            }
-        } else {
-            //console.log('No high score stored. Creating new.');
-            highScore = level;
-            localStorage.setItem('hiscore', highScore.toString());
-            newHighScore = true;
-        }
+        //background
+        this.add.image(centerX, centerY, 'gameover').setScale(3);
+        const overlay = this.add.rectangle(0, 0, game.config.width, game.config.height, 0x000000, 0.5).setOrigin(0);
 
-        if(newHighScore) {
-            this.add.bitmapText(centerX, centerY - textSpacer*3, 'edit', 'New Hi-Score!', 32).setOrigin(0.5);
-        }
-        this.add.bitmapText(centerX, centerY - textSpacer*2, 'edit', `Disintegration averted for ${level}s`, 48).setOrigin(0.5);
-        this.add.bitmapText(centerX, centerY - textSpacer, 'edit', `This browser's best: ${highScore}s`, 24).setOrigin(0.5);
-        this.add.bitmapText(centerX, centerY, 'edit', `Press [space] to Restart`, 36).setOrigin(0.5);
+        const gameover = this.add.bitmapText(centerX, centerY - 100, 'edit', 'GAME OVER', 200).setOrigin(0.5).setTint(0x9ACD32);
 
-        // add credits text
-        // this.add.bitmapText(centerX, centerY + textSpacer, 'edit', 'Music from Bensound', 24).setOrigin(0.5);
-        // this.add.bitmapText(centerX, centerY + textSpacer*1.5, 'edit', 'Sound effects from Pixabay', 24).setOrigin(0.5);
-        // this.add.bitmapText(centerX, centerY + textSpacer*2, 'edit', 'Game play inspired by Nathan Altice', 24).setOrigin(0.5);
+        this.time.addEvent({
+            delay: 3000, 
+            callback: this.shakeCamera,
+            callbackScope: this,
+            loop: true 
+        });
 
-        cursors = this.input.keyboard.createCursorKeys();
+        this.input.keyboard.on('keydown-R', this.restartGame, this);
+        this.input.keyboard.on('keydown-T', this.title, this);
+    }
+    
+    shakeCamera() {
+        this.cameras.main.shake(500, 0.01);
+
+        //also adds restart and title options
+        const restart = this.add.bitmapText(centerX, centerY + 100, 'edit', 'PRESS R TO RESTART', 50).setOrigin(0.5).setTint(0xFFFFFF);
+        const title = this.add.bitmapText(centerX, centerY + 175, 'edit', 'PRESS T TO RETURN TO TITLE', 50).setOrigin(0.5).setTint(0xFFFFFF);
     }
 
-    update() {
-        if (Phaser.Input.Keyboard.JustDown(cursors.up)) {
-            let textureManager = this.textures;
-            console.log(textureManager)
-            // take snapshot of the entire game viewport (same as title screen)
-            this.game.renderer.snapshot((snapshotImage) => {
-                console.log('took snapshot in GameOver')
-                if(textureManager.exists('titlesnapshot')) {
-                    textureManager.remove('titlesnapshot');
-                }
-                textureManager.addImage('titlesnapshot', snapshotImage);
-            });
-
-            // start next scene
-            this.scene.start('Play');
-        }
+    restartGame() {
+        this.scene.stop('Gameover');
+        this.scene.start('Play');
     }
 
-    // restartGame() {
-    //     this.scene.stop('Gameover');
-    //     this.scene.start('Play');
-    // }
-
-    // title() {
-    //     this.scene.stop('Gameover');
-    //     this.scene.start('Title');
-    // }
+    title() {
+        this.scene.stop('Gameover');
+        this.scene.start('Title');
+    }
 }
