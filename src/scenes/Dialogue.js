@@ -55,7 +55,7 @@ class Dialogue extends Phaser.Scene {
         this.dialogText = this.add.bitmapText(this.TEXT_X, this.TEXT_Y, this.DBOX_FONT, '', this.TEXT_SIZE)
         this.nextText = this.add.bitmapText(this.NEXT_X, this.NEXT_Y, this.DBOX_FONT, '', this.TEXT_SIZE)
 
-        this.buzz = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'buzz').setOrigin(0, 1).setScale(5)
+        this.buzz = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'buzz').setOrigin(0, 1).setScale(6)
         this.zurg = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'zurg').setOrigin(0, 1).setScale(5)
         // input
         cursors = this.input.keyboard.createCursorKeys()
