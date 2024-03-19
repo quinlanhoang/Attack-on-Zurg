@@ -26,8 +26,10 @@ class Zurg extends Phaser.Physics.Arcade.Sprite {
         }
 
         //update last position
+        
         this.lastPosition = newY;
         //blink to position
+        
         this.setPosition(this.x, newY);
         
         //timer for next blink 

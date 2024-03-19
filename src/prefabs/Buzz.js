@@ -11,7 +11,7 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
 
         //buzz physics
         this.setCollideWorldBounds(true);
-        this.body.setSize(60, 100).setOffset(0); //adjust as needed   
+        this.body.setSize(50, 90).setOffset(0, - 10); //adjust as needed   
         this.body.allowGravity = true;
 
         //define hotkeys for movement
@@ -56,7 +56,6 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
             this.anims.play('jump')
             this.body.setSize(45, 80).setOffset(0, 20);
             this.jumpSound.play();
-
             //this.stateMachine.transition('idle')
         }
 

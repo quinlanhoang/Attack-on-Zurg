@@ -36,6 +36,8 @@ class Load extends Phaser.Scene {
 
         this.load.spritesheet('buzz-jump', 'img/buzz-jump.png', {frameWidth: 72, frameHeight: 90})
 
+        this.load.image('teleport', 'img/teleport.png')
+
         //character graphics
         this.load.image('buzz', 'img/buzz.png');
         this.load.image('buzz_headshot', 'img/buzz_headshot.png');
