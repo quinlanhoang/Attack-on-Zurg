@@ -5,7 +5,7 @@ class Zurg extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.world.enable(this);
 
-        this.body.setSize(-45, 100);
+        this.body.setSize(-45, 100).setOffset(200, 25);
         
         //initialize last position
         this.lastPosition = null;

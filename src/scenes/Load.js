@@ -21,6 +21,7 @@ class Load extends Phaser.Scene {
         //implement credits later
         
         this.load.path = './assets/';
+
         //background
         this.load.image('background', 'img/background.png');
         this.load.image('stars', 'img/stars.png');
@@ -29,12 +30,16 @@ class Load extends Phaser.Scene {
         this.load.image('victory', 'img/victory.png');
         
         //special effects/animations
-        
+        this.load.spritesheet('buzz_walk', 'img/buzz_walk.png', {frameWidth: 54, frameHeight: 100})
+
+        this.load.spritesheet('buzz-crouch', 'img/buzz-crouch.png', {frameWidth: 72, frameHeight: 90})
+
+        this.load.spritesheet('buzz-jump', 'img/buzz-jump.png', {frameWidth: 72, frameHeight: 90})
 
         //character graphics
-        this.load.image('buzz', '/img/buzz.png');
-        this.load.image('buzz_headshot', '/img/buzz_headshot.png');
-        this.load.image('zurg_headshot', '/img/zurg_headshot.png');
+        this.load.image('buzz', 'img/buzz.png');
+        this.load.image('buzz_headshot', 'img/buzz_headshot.png');
+        this.load.image('zurg_headshot', 'img/zurg_headshot.png');
         this.load.image('zurg', 'img/zurg.png');
         this.load.image('enemy', 'img/enemy.png');
         this.load.image('refresh', 'img/refresh.png');
@@ -45,7 +50,7 @@ class Load extends Phaser.Scene {
         this.load.spritesheet('laserbeam', 'img/laserbeam.png', {frameWidth: 40, frameHeight: 3});
 
         //audio
-        this.load.audio('jump', '/audio/jump.wav');
+        this.load.audio('jump', 'audio/jump.wav');
         this.load.audio('zurgAttack', 'audio/zurgAttack.mp3');
         this.load.audio('buzzAttack', 'audio/buzzAttack.wav');
         this.load.audio('buzzHit', 'audio/buzzHit.wav');
@@ -60,6 +65,28 @@ class Load extends Phaser.Scene {
     }
 
     create() {
+
+        this.anims.create({
+            key: 'walk',
+            frameRate: 8,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('buzz_walk', {start: 0, end: 3}), 
+        })
+
+
+        this.anims.create({
+            key: 'crouch',
+            frameRate: 8,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('buzz-crouch', {start: 0, end: 2}),
+        })
+
+        this.anims.create({
+            key: 'jump',
+            frameRate: 8,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('buzz-jump', {start: 0, end: 2}),
+        })
 
         //checks for local storage
         if(window.localStorage) {

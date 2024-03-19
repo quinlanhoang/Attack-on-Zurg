@@ -1,6 +1,13 @@
 //Quinlan Hoang & Amber Hsuing
 //Attack on Zurg
 
+//techinical execution
+//physics
+//text objects
+//tilemap
+//tween manager
+//animation manager
+
 //main
 'use strict';
 
@@ -16,7 +23,7 @@ let config = {
     physics : {
         default : 'arcade',
         arcade : {
-            //debug: true
+            debug: true
         }
     },
     scene: [Load, Title, Dialogue, Play, Gameover, Victory]

@@ -8,7 +8,7 @@ class Title extends Phaser.Scene {
         //main title text
         const title = this.add.bitmapText(centerX, centerY - 150, 'edit', 'Attack on Zurg', 95).setOrigin(0.5);
         let instruct = this.add.bitmapText(centerX, centerY - 75, 'edit', 'Use WASD keys to move and space to shoot', 50).setOrigin(0.5);
-        let start = this.add.bitmapText(centerX, centerY - 25, 'edit', 'Press [space] to start game', 50).setOrigin(0.5);
+        let start = this.add.bitmapText(centerX, centerY - 25, 'edit', 'Press space to start game', 50).setOrigin(0.5);
 
         this.tweens.add({
             targets: title,

@@ -11,7 +11,7 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
 
         //buzz physics
         this.setCollideWorldBounds(true);
-        this.body.setSize(65, 100); //adjust as needed   
+        this.body.setSize(60, 100).setOffset(0); //adjust as needed   
         this.body.allowGravity = true;
 
         //define hotkeys for movement
@@ -25,27 +25,57 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
 
         //shooting properties 
         this.lastShootTime = 0;
-        this.shootCooldown = 5000; //cooldown period
+        this.shootCooldown = 1500; //cooldown period
 
         //health properties
         this.health = 100;
         this.healthChangedCallback = healthChangedCallback;
+
+        // scene.buzzFSM = new StateMachine('idle', {
+        //     idle: new IdleState(),
+        //     walk: new RunState(),
+        //     jump: new JumpState(),
+        //     crouch: new CrouchState(),
+        // }, [scene, this])
+
+        //walk animation
+        // this.anims.create({
+        //     key: 'buzz_walk',
+        //     frames: this.anims.generateFrameNumbers('buzz-walk', {start: 0, end: 3}),
+        //     frameRate: 50,
+        //     repeat: -1,
+        // });
+        // this.play('buzz-walk')
     }
 
     update() {
         //handle player key input
         if (this.keys.up.isDown && this.body.onFloor()) {
             this.setVelocityY(-500); //adjust as needed
+            //this.stateMachine.transition('buzz-jump')
+            this.anims.play('jump')
+            this.body.setSize(45, 80).setOffset(0, 20);
             this.jumpSound.play();
 
+            //this.stateMachine.transition('idle')
         }
 
         if (this.keys.left.isDown) {
+            this.anims.play('walk')
             this.setVelocityX(-300);
+            //this.stateMachine.transition('buzz-walk')
+            
+            this.body.setSize(45, 80).setOffset(0, 20);
+            
+            //this.stateMachine.transition('idle')
         }
 
         else if(this.keys.right.isDown) {
             this.setVelocityX(300);
+            this.anims.play('walk')
+            this.body.setSize(45, 80).setOffset(0, 20);
+            //this.stateMachine.transition('buzz-walk')
+            //this.stateMachine.transition('idle')
         }
 
         else {
@@ -87,3 +117,161 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
         }
     }
 }
+
+// class IdleState extends State {
+//     // enter(scene, buzz) {
+//     //     return
+//     // }    
+    
+//     execute(scene, buzz) {
+//         //const { up, left, right, down } = scene.cursors
+
+//         if (buzz.keys.up.isDown && buzz.body.onFloor()) {
+//             buzz.setVelocityY(-500);
+//             this.stateMachine.transition('buzz-jump')
+//             buzz.jumpSound.play();
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+
+//         if (buzz.keys.down.isDown) {
+//             this.stateMachine.transition('buzz-crouch')
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+
+//         if (buzz.keys.left.isDown) {
+//             buzz.setVelocityX(-300);
+//             this.stateMachine.transition('buzz_walk')
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+
+//         if (buzz.keys.right.isDown) {
+//             buzz.setVelocityX(300);
+//             this.stateMachine.transition('buzz_walk')
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+//     }
+// }
+
+// class RunState extends State {
+//     enter(scene, buzz) {
+//         if (buzz.health <= 0) {
+//             return
+//         }
+//         buzz.anims.play('buzz_walk')
+//     }  
+//     execute(scene, buzz) {
+//         //const {up, left, right, down } = scene.cursors
+
+//         if (buzz.keys.up.isDown && buzz.body.onFloor()) {
+//             buzz.setVelocityY(-500);
+//             this.stateMachine.transition('buzz-jump')
+//             buzz.jumpSound.play();
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+
+//         if (buzz.keys.down.isDown) {
+//             this.stateMachine.transition('buzz-crouch')
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+
+//         if (buzz.keys.left.isDown) {
+//             buzz.setVelocityX(-300);
+//             this.stateMachine.transition('buzz_walk')
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+
+//         if (buzz.keys.right.isDown) {
+//             buzz.setVelocityX(300);
+//             this.stateMachine.transition('buzz_walk')
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+//     }
+// }
+
+// class CrouchState extends State {
+//     enter(scene, buzz) {
+//         if (buzz.health <= 0) {
+//             return
+//         }
+//         buzz.anims.play('buzz-crouch')
+//     }  
+//     execute(scene, buzz) {
+//         //const {up, left, right, down } = scene.cursors
+
+//         if (buzz.keys.up.isDown && buzz.body.onFloor()) {
+//             buzz.setVelocityY(-500);
+//             this.stateMachine.transition('buzz-jump')
+//             buzz.jumpSound.play();
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+
+//         if (buzz.keys.down.isDown) {
+//             this.stateMachine.transition('buzz-crouch')
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+
+//         if (buzz.keys.left.isDown) {
+//             buzz.setVelocityX(-300);
+//             this.stateMachine.transition('buzz_walk')
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+
+//         if (buzz.keys.right.isDown) {
+//             buzz.setVelocityX(300);
+//             this.stateMachine.transition('buzz_walk')
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+//     }
+// }
+
+// class JumpState extends State {
+//     enter(scene, buzz) {
+//         if (buzz.health <= 0) {
+//             return
+//         }
+//         buzz.anims.play('buzz-jump')
+//     }  
+//     execute(scene, buzz) {
+//         //const {up, left, right, down } = scene.cursors
+
+//         if (buzz.keys.up.isDown && buzz.body.onFloor()) {
+//             buzz.setVelocityY(-500);
+//             this.stateMachine.transition('buzz-jump')
+//             buzz.jumpSound.play();
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+
+//         if (buzz.keys.down.isDown) {
+//             this.stateMachine.transition('buzz-crouch')
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+
+//         if (buzz.keys.left.isDown) {
+//             buzz.setVelocityX(-300);
+//             this.stateMachine.transition('buzz_walk')
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+
+//         if (buzz.keys.right.isDown) {
+//             buzz.setVelocityX(300);
+//             this.stateMachine.transition('buzz_walk')
+//             this.stateMachine.transition('idle')
+//             return
+//         }
+//     } 
+//}

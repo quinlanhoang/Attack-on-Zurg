@@ -12,15 +12,15 @@ class Dialogue extends Phaser.Scene {
         this.DBOX_FONT = 'edit'	        // dialog box font key
 
         this.TEXT_X = 375		    // text w/in dialog box x-position
-        this.TEXT_Y = 445			    // text w/in dialog box y-position
+        this.TEXT_Y = 345			    // text w/in dialog box y-position
         this.TEXT_SIZE = 32		        // text font size (in pixels)
         this.TEXT_MAX_WIDTH = 715	    // max width of text within box
 
         this.NEXT_TEXT = '[SPACE]'	    // text to display for next prompt
         this.NEXT_X = 800			    // next text prompt x-position
-        this.NEXT_Y = 574			    // next text prompt y-position
+        this.NEXT_Y = 474			    // next text prompt y-position
 
-        this.LETTER_TIMER = 10		    // # ms each letter takes to "type" onscreen
+        this.LETTER_TIMER = 15		    // # ms each letter takes to "type" onscreen
 
         // dialog variables
         this.dialogConvo = 0			// current "conversation"
@@ -35,7 +35,7 @@ class Dialogue extends Phaser.Scene {
         this.tweenDuration = 500        // character in/out tween duration
 
         this.OFFSCREEN_X = -1000         // x,y coordinates used to place characters offscreen
-        this.OFFSCREEN_Y = 1000
+        this.OFFSCREEN_Y = 750
     }
 
     create() {
@@ -138,7 +138,7 @@ class Dialogue extends Phaser.Scene {
                 // tween in new speaker's image
                 this.tweens.add({
                     targets: this[this.dialogSpeaker],
-                    x: this.DBOX_X + 50,
+                    x: this.DBOX_X + 500,
                     duration: this.tweenDuration,
                     ease: 'Linear'
                 })
