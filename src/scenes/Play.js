@@ -60,8 +60,9 @@ class Play extends Phaser.Scene {
 
         //create buzz
         const buzzStartingX = game.config.width / 2;
-        const buzzStartingY = tempPlatformY - 50; 
+        const buzzStartingY = tempPlatformY - 60; 
         this.buzz = new Buzz(this, buzzStartingX, buzzStartingY, 'buzz', null, this.updateHealthBars.bind(this))
+        // this.buzz.body(0, 0, 16, 64);
         this.buzzHit = this.sound.add('buzzHit');
         //create zurg
         this.zurg = new Zurg(this, game.config.width - 100, game.config.height / 2, 'zurg', null, this.updateHealthBars.bind(this));
@@ -238,7 +239,7 @@ class Play extends Phaser.Scene {
         this.zurgHit.play();
         laserbeam.destroy();
         console.log("Laserbeam destroyed")
-        this.zurg.health -= 100;
+        this.zurg.health -= 200;
         this.updateHealthBars();
         if (zurg.health <= 0) {
             this.victory();

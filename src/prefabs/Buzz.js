@@ -11,7 +11,7 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
 
         //buzz physics
         this.setCollideWorldBounds(true);
-        this.body.setSize(50, 90).setOffset(0, - 10); //adjust as needed   
+        this.body.setSize(25, 70).setOffset(0,0); //adjust as needed   
         this.body.allowGravity = true;
 
         //define hotkeys for movement
@@ -31,21 +31,6 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
         this.health = 100;
         this.healthChangedCallback = healthChangedCallback;
 
-        // scene.buzzFSM = new StateMachine('idle', {
-        //     idle: new IdleState(),
-        //     walk: new RunState(),
-        //     jump: new JumpState(),
-        //     crouch: new CrouchState(),
-        // }, [scene, this])
-
-        //walk animation
-        // this.anims.create({
-        //     key: 'buzz_walk',
-        //     frames: this.anims.generateFrameNumbers('buzz-walk', {start: 0, end: 3}),
-        //     frameRate: 50,
-        //     repeat: -1,
-        // });
-        // this.play('buzz-walk')
     }
 
     update() {
@@ -54,7 +39,7 @@ class Buzz extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityY(-500); //adjust as needed
             //this.stateMachine.transition('buzz-jump')
             this.anims.play('jump')
-            this.body.setSize(45, 80).setOffset(0, 20);
+            this.body.setSize(35, 70).setOffset(20, 20);
             this.jumpSound.play();
             //this.stateMachine.transition('idle')
         }
